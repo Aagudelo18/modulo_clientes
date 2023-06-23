@@ -8,7 +8,7 @@ const Roles = require('../models/roles')
 
 //consultar
 const rolesGet = async(req, res = response)=>{
-    const{nombre}= req.query // desestructuracion obtiene lo que se manda del navegador
+    const{codigo}= req.query // desestructuracion obtiene lo que se manda del navegador
     
 
     //Buscar todos los usuarios colsultar los uasuarios
@@ -47,14 +47,13 @@ const rolesPost = async (req, res = response) => {
 
 const rolesPut= async(req, res= response)=>{
     //captura atributos o parametros
-    const{n_documento,nombre,correo,direccion, celular,tipo_cliente, estado}=req.body
+    const{codigo,nombre,permisos,estado}=req.body
     let mensaje=''
     //realizar la moficiacion
    // el campo 1 es con el cual se va hacer la busqueda los demas son los campos que se va a modificar ejem nombre:nombre
     
     try{
-        const clientes = await Clientes.findOneAndUpdate({n_documento:n_documento},{nombre:nombre},{correo:correo},{direccion:direccion},
-            {celular:celular},{tipo_cliente:tipo_cliente},{estado:estado})
+        const roles = await Roles.findOneAndUpdate({codigo:codigo},{nombre:nombre,permisos:permisos,estado:estado})
         mensaje='La modificacion se efectuo correctamente'
 
     }
